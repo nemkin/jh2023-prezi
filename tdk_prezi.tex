@@ -44,18 +44,14 @@
 % Newline in cell
 \usepackage{makecell}
 
-\author[Nemkin Viktória]{Nemkin Viktória}
-\institute[]{
-\begin{small}dr. Friedl Katalin\end{small}\\
-\begin{footnotesize}Számítástudományi és Információelméleti Tanszék\end{footnotesize}
-}
-\title{Kvantumséták szimulációja}
-\subtitle{klasszikus számítógépen}
+\title{Simulations of quantum walks on regular graphs}
+\author[Katalin Friedl, \underline{Viktória Nemkin}]{Katalin Friedl \hspace{2cm} \underline{Viktória Nemkin}}
 \date{}
 
-\begin{document}
 
+\begin{document}
 \begin{frame}
+
 \titlepage
 
 \begin{textblock*}{150pt}(280pt,200pt) % {block width} (coords)
@@ -369,7 +365,7 @@ $
 
 \begin{frame}{Kitekintés}
 \begin{itemize}
-    \item Szimulátor szoftver: \url{github.com/nemkin/quantum} (open source, MIT licensz)
+    \item Szimulátor szoftver: \url{github.com/nemkin/quantum-walk} (open source, MIT licens)
     \item Kutatási irány:
     \begin{itemize}
         \item kvantumséta alapú keresési algoritmus
@@ -378,35 +374,6 @@ $
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Bíráló kérdései}
 
-\begin{itemize}
-    \item Miként értelmezhető a hitting time ábrákon a görbék folytonossága a vízszintes tengely mentén?
-    \begin{itemize}
-        \item Nem a megfelelő grafikontípust választottam a diszkrét jellegű adatok szemléltetésére.
-    \end{itemize}
-     \begin{figure}[H]
-        \includegraphics[width=0.5\linewidth]{./tdk_figures/results/hypercube/hadamard_hitting_time.jpg}
-      \end{figure}
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{Bíráló kérdései}
-
-\begin{itemize}
-    \item Mi a TDK dolgozat elsődleges célja? A kvantumséta kutatása, vagy egy szimulátor írása, amely alkalmas a kvantumsétákkal kapcsolatos kutatások támogatására?
-    \begin{itemize}
-        \item A TDK dolgozatom célja a kvantum shift operátorral kapcsolatos 2 elméleti eredmény bemutatása, továbbá 
-        ezekre építve a szimulátor szoftver implementálása volt. Hosszú távon ezt a szoftvert felhasználva szeretnék kvantumsétákra alapuló kvantumos keresőalgoritmusok kutatásával foglalkozni.
-    \end{itemize}
-    \item "Mátrix elemzés" a szerző által ismert szimulátorokról a dolgozatban javasolt 5 értékelési szempont alapján.
-    \begin{itemize}
-        \item A 3. dián látható a dolgozatból hiányzó mátrix elemzés.
-    \end{itemize}
-\end{itemize}
-
-\end{frame}
 
 \end{document}
