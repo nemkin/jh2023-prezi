@@ -60,320 +60,197 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Gráfbolyongások}
-  
+  \frametitle{Quantum walks on regular graphs}
+
   \begin{itemize}
-    \item Véletlen séta a gráf csúcsain (speciális Markov-lánc).
-    \item Klasszikusan:
-    \begin{itemize}
-        \item Google kereső: PageRank
-        \item Közelítő algoritmusok: SAT megoldó, részgráf keresése
-    \end{itemize}
-    \item Kvantumosan:
-    \begin{itemize}
-        \item Gyorsabb: $O(N^2) \rightarrow O(N)$ (elérés a szélére)
-        \item Kvantum párhuzamosság
-        \item Destruktív / konstruktív interferencia
-        \item Korszerű, ma is aktívan kutatott, nem letisztult / kidolgozott
-    \end{itemize}
+      \item Quantum algorithms for solving search problems.
+      \item Generalization of classical random graph walks.
+      \item Vastly different behaviour.
+      \item Random choice = quantum coin toss.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Kvantumséták kutatása}
-\begin{scriptsize}
-Kvantum hardver: kevés qubit $\rightarrow$ Szimuláció klasszikus számítógépen
-\begin{table}
-\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
-  Package
-& Frissítve
-& Architektúra
-& Gráfok
-& \makecell[l]{Klasszikus\\szimuláció?}
-& Kezdők számára?
-\\ \hline
-
-  \href{https://github.com/QWalk/mainline}{\color{blue}QWalk}
-& 2018
-& \makecell[l]{C++, optimalizációra\\kihegyezett}
-& \makecell[l]{rács\\molekula-\\szerkezet}
-& \makecell[c]{\texttimes}
-& \makecell[l]{\texttimes: kvantum Monte\\Carlo elektronstruktúra\\számítások}
-\\ \hline
-
-  \href{https://github.com/Haixing-Hu/qwViz/}{\color{blue}QwViz}
-& 2016
-& C, szkript jellegű
-& \makecell[l]{irányítatlan\\gráfok, mátrix\\kézzel megadva}
-& \makecell[c]{\texttimes}
-& \makecell[l]{\texttimes: C forráskód technikai}
-\\ \hline
-
-  \href{https://github.com/hiperwalk/hpwalk}{\color{blue}Hiperwalk}
-& 2017\footnote{\scriptsize{}2021: Python 2 $\rightarrow$ 3 átállás}
-& \makecell[l]{Python \& Neblina, szkript\\jellegű, nested if-ek}
-& \makecell[l]{egyenes, kör\\rács, tórusz}
-& \makecell[c]{\texttimes}
-& \makecell[l]{\checkmark: saját bemeneti nyelv,\\de bővíteni nehéz}
-\\ \hline
-
-\href{https://github.com/iitis/QuantumWalk.jl}{\color{blue}QuantumWalk.jl}
-& 2020
-& \makecell[l]{Julia, szép architektúra\\de: Szegedy-féle sétára}
-& \makecell[l]{irányított gráfok}
-& \makecell[c]{\texttimes}
-& \checkmark
-
-
-\end{tabular}
-\end{table}
-
-Nem diszkrét séták:
+\begin{frame}{1 dimension}
+\textbf{State registers}
 \begin{itemize}
-\item \href{https://github.com/josh146/pyctqw}{\color{blue}PyCTQW}: 2014, csak folytonos idejű szimuláció
-\item \href{https://github.com/iitis/QSWalk.jl}{\color{blue}QSWalk.jl}: 2020, csak quantum stochastic walk szimuláció (generalizáció)
+    \item Quantum memory = unit vectors in Hilbert space. \pause
+    \item Position state: \pause
+    \begin{itemize}
+        \item $\ket{-N},\ket{-N+1},\dots,\ket{-1},\ket{0},\ket{1},\dots,\ket{N-1},\ket{N}$ \pause
+        \item $\ket{x} = \sum\limits_{i=-N}^{N}x_i\ket{i} \in{} \mathbb{C}^{2N+1}$ \pause
+    \end{itemize}
+    \item Coin state: \pause
+    \begin{itemize}
+        \item Heads = $\ket{0}$, Tails = $\ket{1}$ \pause
+        \item $\ket{s} = s_0 \ket{0} + s_1 \ket{1} \in \mathbb{C}^2$ \pause
+    \end{itemize}
+    \item Composite state: \pause
+    \begin{itemize}
+        \item $\ket{x}\otimes{}\ket{s}$
+    \end{itemize}
 \end{itemize}
-
-\end{scriptsize}
 \end{frame}
 
-\begin{frame}{Feladat}
-
-\begin{columns}[t,onlytextwidth]
-    \begin{column}{.5\textwidth}
-      \begin{center}
-        \textbf{Elméleti matematikai}
-      \end{center}
-      \begin{itemize}
-          \item Markov-láncok, valószínűségszámítás
-          \item Gráfelméleti algoritmusok: körlefedés, teljes párosítás
-          \item Kvantuminformatika, komplex lineáris algebra
-          \item Diszkrét idejű kvantumséták: position-coin notation, (arc notation, Szegedy-féle séta)
-          \item Kvantummechanikából származtatva (Kempe): 1 dimenziós séta = részecske $\rightarrow$ hullámcsomag + spintől függő irány + detektálás valószínűsége
-      \end{itemize}
-    \end{column}
-    \begin{column}{.5\textwidth}
-      \begin{center}
-         \textbf{Szoftvermérnöki}
-      \end{center}
-      \begin{itemize}
-          \item Architekturális tervezés: Strategy minta
-          \item Clean code elvek: Újrafelhasználhatóság, egységbe zárás, olvashatóság
-          \item Futásidő és memóriahasználat optimalizálása: Szomszédossági orákulum
-          \item Eszközök megválasztása:
-          \begin{itemize}
-            \item Nyelv: Python3
-            \item Lineáris algebrai műveletek: Numpy
-            \item Eredmények vizualizációja: Matplotlib
-            \item Report fájl generálása: Latex
-          \end{itemize}
-      \end{itemize}
-    \end{column}
-  \end{columns}
+\begin{frame}{Evolution}
+\begin{enumerate}
+    \item Flipping the coin.
+    \item Stepping according to the result.
+\end{enumerate}
+\begin{itemize}
+    \item Quantum operators = unitary matrices.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{1 dimenziós séta}
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\linewidth]{./figures/teve.jpg}
-  \end{figure}
-\end{frame}
+\frametitle{Quantum coins}
 
-\begin{frame}
-  \frametitle{Kvantumérme}
+\pause
+
+\textbf{Hadamard coin}
+\vspace{-0.5cm}
+\begin{align*}
+  \mathbf{H}^{\otimes n} = \begin{bmatrix}\frac{1}{\sqrt{2}}\begin{pmatrix}
+      1 & 1  \\
+      1 & -1
+  \end{pmatrix}
+  \end{bmatrix}^{\otimes n}
+\end{align*}
+
+\pause
  
-  \begin{columns}[t,onlytextwidth]
-    \begin{column}{.5\textwidth}
-     \begin{itemize}
-    \item Kvantum regiszer: $\ket{c} \rightarrow$ \\ Érme aktuális állapota
-    \item Evolúció operátor: $\ket{C} \rightarrow$
-  \end{itemize}
-      \begin{center}
-    
-    \textbf{Fourier} ($\omega = e^{\frac{2\pi{}i}{N}}$)
+\textbf{Grover coin} (diffusion)
+\vspace{-0.5cm}
+\begin{align*}
+\ket{D} =& \frac{1}{\sqrt{2^n}} \sum\limits_{i=0}^{2^n-1} \ket{i}\\
+\mathbf{G} =& 2\ket{D}\bra{D} - \mathbf{I}
+\end{align*}
 
-        \addvspace{10pt}
+\pause
 
-$\frac{1}{\sqrt{N}}
-\begin{pmatrix}
-  1 & 1 & 1 & \dots & 1 \\
-  1 & \omega & \omega^2 & \dots & \omega^{N-1} \\
-  1 & \omega^2 & \omega^4 & \dots & \omega^{2(N-1)} \\
-  \vdots & \vdots & \vdots & \ddots & \vdots \\
-  1 & \omega^{N-1} & \omega^{2(N-1)} & \dots & \omega^{(N-1)(N-1)}
-\end{pmatrix}
-$
-    
-    
-    
-      \end{center}
-
-    \end{column}
-    \begin{column}{.5\textwidth}
-        \begin{center}
-        
-         \textbf{Hadamard}
-        
-        \addvspace{10pt}
-        
-$
-   \mathbf{H} = \begin{pmatrix}
-      \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}  \\
-      \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
-    \end{pmatrix}$
-
-        \addvspace{10pt}
-        
-$\mathbf{H_n} = \mathbf{H}^{\otimes{}n}$
-
-
-        \addvspace{10pt}
-        
-\textbf{Grover}
-        
-        \addvspace{10pt}
-        
-$
-\begin{pmatrix}
-      \frac{2}{N} - 1 & \frac{2}{N} & \dots  & \frac{2}{N} \\
-      \frac{2}{N} & \frac{2}{N} - 1 & \dots  & \frac{2}{N} \\
-      \vdots & \vdots & \ddots & \vdots \\
-      \frac{2}{N} & \frac{2}{N} & \vdots & \frac{2}{N} - 1
-    \end{pmatrix}
-$
-
-
-      \end{center}
-    \end{column}
-  \end{columns}
+\textbf{Fourier coin} (QFT)
+\vspace{-0.5cm}
+\begin{align*}
+\mathbf{F}_N = \left[\frac{1}{\sqrt{N}} e^{\frac{2\pi{}i}{N}xy}\right]_{x,y}
+\end{align*}
 \end{frame}
 
+\begin{frame}{Step}
 
-\begin{frame}{Kvantum shift operátor: Saját munkám}
+\vspace{-1.5cm}
+\begin{align*}
+\ket{i}\ket{0} \rightarrow& \ket{i-1}\ket{0} \\
+\ket{i}\ket{1} \rightarrow& \ket{i+1}\ket{1}
+\end{align*}
+
+\pause
+
+\textbf{Left shift operator}
+\vspace{-0.5cm}
+\begin{align*}
+\mathbf{L} = \ket{N}\bra{-N} + \sum\limits_{i=-(N-1)}^{N} \ket{i-1}\bra{i}
+\end{align*}
+
+\pause
+
+\textbf{Right shift operator}
+\vspace{-0.5cm}
+\begin{align*}
+\mathbf{R} = \ket{-N}\bra{N} + \sum\limits_{i=-N}^{N-1} \ket{i+1}\bra{i} 
+\end{align*}
+
+\pause
+
+\textbf{Shift operator}
+\vspace{-0.5cm}
+\begin{align*}
+  \mathbf{S} = \mathbf{L}\otimes\ket{0}\bra{0} + \mathbf{R}\otimes\ket{1}\bra{1}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}{Walk in 1 dimension}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\linewidth]{./figures/results/cycle_long/classical.eps}
+  \includegraphics[width=0.3\linewidth]{./figures/results/cycle_long/hadamard.eps}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Generalization to undirected $d$-regular graphs}
 \begin{itemize}
-    \item \textbf{Több egydimenziós érme + kvantum shift operátor $\rightarrow$ n dimenziós rács}
+    \item Position state: \item $\ket{x} = \sum\limits_{v=0}^{n-1}x_v\ket{v} \in{} \mathbb{C}^{n}$ \pause
+    \item Coin state: $\ket{s} = \sum\limits_{i=0}^{d-1}s_i\ket{i} \in{} \mathbb{C}^{d}$
+    \item Step operator: $\mathbf{S} = \mathbf{S}_0\otimes \ket{0}\bra{0} + \mathbf{S}_1 \otimes\ket{1}\bra{1} + \dots + \mathbf{S}_{d-1}\otimes \ket{d-1}\bra{d-1}$
     \begin{itemize}
-        \item Bizonyítottam, hogy a kvantum shift operátor felbomlik $n$ darab független $2$ dimenziós operátorra.
-        \item Ezt felhasználva a memóriaigény lecsökkenthető:
-        \begin{itemize}
-            \item A $d$-től nem exponenciálisan, csak lineárisan függ.
-            \item A futásidőt $d$-szeresére növelve a memóriaigény $d$-ben konstans.
-        \end{itemize}
+        \item $\sum\limits_{i=0}^{d-1}S_i$ is the adjacency matrix of the graph.
+        \item The evolution operator is unitary $\rightarrow$ the $S_i$ must be permutation matrices.
     \end{itemize}
-    \item \textbf{Egy többdimenziós érme $\rightarrow$ d-reguláris gráf}
+    \item (Coin toss operator)
+\end{itemize}
+
+
+\begin{itemize}
+    \item Quantum memory = unit vectors in Hilbert space. \pause
+    \item Position state: \pause
     \begin{itemize}
-        \item Explicit unitér mátrixos felírás (függvények és implicit helyett).
-        \item Bizonyítás: Shift operátor a gráf körlefedéséből (élszínosztályokból) kiindulva konstruálható
+        \item $\ket{-N},\ket{-N+1},\dots,\ket{-1},\ket{0},\ket{1},\dots,\ket{N-1},\ket{N}$ \pause
+        \item $\ket{x} = \sum\limits_{i=-N}^{N}x_i\ket{i} \in{} \mathbb{C}^{2N+1}$ \pause
+    \end{itemize}
+    \item Coin state: \pause
+    \begin{itemize}
+        \item Heads = $\ket{0}$, Tails = $\ket{1}$ \pause
+        \item $\ket{s} = s_0 \ket{0} + s_1 \ket{1} \in \mathbb{C}^2$ \pause
+    \end{itemize}
+    \item Composite state: \pause
+    \begin{itemize}
+        \item $\ket{x}\otimes{}\ket{s}$
     \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{1 dimenziós bolyongás}
+\begin{frame}{Walk in 2 dimension (Grid)}
   \begin{columns}[onlytextwidth]
-    \begin{column}{.5\textwidth}
-      \begin{figure}
-        \includegraphics[width=\textwidth]{./figures/classical_simulation_short.jpg}
-        \caption{\hspace{0.71cm}Klasszikus bolyongás}
-      \end{figure}
+    \begin{column}{.20\textwidth}
     \end{column}
-    \hfill
-    \begin{column}{.5\textwidth}
-      \begin{figure}
-        \includegraphics[width=\textwidth]{./figures/quantum_simulation_short.jpg}
-        \caption{\hspace{0.73cm}Kvantum bolyongás}
-      \end{figure}
+    \begin{column}{.30\textwidth}
+      \includegraphics[width=\textwidth]{./figures/results/grid_horizontal_vertical/classical.eps}
+      \vspace{-1em} % adjust this value as needed
+      \includegraphics[width=\textwidth]{./figures/results/grid_horizontal_vertical/grover.eps}
+    \end{column}
+    \begin{column}{.30\textwidth}
+      \includegraphics[width=\textwidth]{./figures/results/grid_horizontal_vertical/hadamard.eps}
+      \vspace{-1em} % adjust this value as needed
+      \includegraphics[width=\textwidth]{./figures/results/grid_horizontal_vertical/dft.eps}
+    \end{column}
+    \begin{column}{.20\textwidth}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{1 dimenziós bolyongás körbeér}
 
+\begin{frame}{Walk on a Hypercube}
   \begin{columns}[onlytextwidth]
-    \begin{column}{.25\textwidth}
+    \begin{column}{.20\textwidth}
     \end{column}
-    \begin{column}{.25\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/path/classical.jpg}
-      \end{figure}
+    \begin{column}{.30\textwidth}
+      \includegraphics[width=\textwidth]{./figures/results/hypercube/classical.eps}
+      \vspace{-1em} % adjust this value as needed
+      \includegraphics[width=\textwidth]{./figures/results/hypercube/grover.eps}
     \end{column}
-    \begin{column}{.25\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/path/hadamard.jpg}
-      \end{figure}
+    \begin{column}{.30\textwidth}
+      \includegraphics[width=\textwidth]{./figures/results/hypercube/hadamard.eps}
+      \vspace{-1em} % adjust this value as needed
+      \includegraphics[width=\textwidth]{./figures/results/hypercube/dft.eps}
     \end{column}
-    \begin{column}{.25\textwidth}
+    \begin{column}{.20\textwidth}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Rácson bolyongás}
-
-  \begin{columns}[onlytextwidth]
-    \begin{column}{.23\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/grid/classical.jpg}
-      \end{figure}
-    \end{column}
-    \begin{column}{.08\textwidth}
-    \end{column}
-    \begin{column}{.23\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/grid/hadamard.jpg}
-      \end{figure}
-    \end{column}
-     \begin{column}{.23\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/grid/grover.jpg}
-      \end{figure}
-    \end{column}
-    \begin{column}{.23\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/grid/dft.jpg}
-      \end{figure}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Hiperkockán bolyongás}
-
-  \begin{columns}[onlytextwidth]
-    \begin{column}{.23\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/hypercube/classical.jpg}
-      \end{figure}
-    \end{column}
-    \begin{column}{.08\textwidth}
-    \end{column}
-    \begin{column}{.23\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/hypercube/hadamard.jpg}
-      \end{figure}
-    \end{column}
-    \begin{column}{.23\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/hypercube/grover.jpg}
-      \end{figure}
-    \end{column}
-    \begin{column}{.23\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.9\textwidth]{./tdk_figures/results/hypercube/dft.jpg}
-      \end{figure}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Kitekintés}
+\begin{frame}{Software}
 \begin{itemize}
-    \item Szimulátor szoftver: \url{github.com/nemkin/quantum-walk} (open source, MIT licens)
-    \item Kutatási irány:
-    \begin{itemize}
-        \item kvantumséta alapú keresési algoritmus
-        \item klasszikusan NP-teljes problémák (protein folding) megoldására
-    \end{itemize}
+    \item \url{github.com/nemkin/quantum-walk} (open source, MIT license)
 \end{itemize}
 \end{frame}
-
-
 
 \end{document}
