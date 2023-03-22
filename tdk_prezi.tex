@@ -103,9 +103,15 @@ Quantum operators = unitary matrices.
     \item Stepping according to the result.
 \end{enumerate}
 
-  \begin{center}
+   \begin{center}
     \begin{tikzpicture}[scale=1.5, every node/.style={scale=0.7}]
       % Nodes
+      \node[circle, fill=blue!50] (xN) at (-3, 0) {};
+      \node[below] at (xN.south) {$\ket{-N}$};
+      
+      \node[circle, fill=blue!50] (xN2) at (3, 0) {};
+      \node[below] at (xN2.south) {$\ket{N}$};
+      
       \foreach \i in {-2, ..., 2} {
         \node[circle, fill=blue!50] (x\i) at (\i, 0) {};
         \node[below] at (x\i.south) {$\ket{\i}$};
@@ -113,9 +119,16 @@ Quantum operators = unitary matrices.
       
       % Arrows
       \foreach \i [evaluate=\i as \j using int(\i+1)] in {-2, ..., 1} {
-        \draw[->, thick] (x\i) to[bend left] node[midway, above] {$\ket{1}$} (x\j);
-        \draw[->, thick] (x\j) to[bend left] node[midway, below] {$\ket{0}$} (x\i);
+        \draw[->, thick] (x\i) to[bend left] node[midway, above] {$\ket{0}$} (x\j);
+        \draw[->, thick] (x\j) to[bend left] node[midway, below] {$\ket{1}$} (x\i);
       }
+      
+      % Ellipsis
+      \node at (-2.5, 0.1) {$\cdots$};
+      \node at (2.5, 0.1) {$\cdots$};
+      
+      % Axis line
+      \draw[->, thick] (-3.5, 0) -- (3.5, 0);
     \end{tikzpicture}
   \end{center}
 
