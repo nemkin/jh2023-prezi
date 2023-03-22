@@ -95,13 +95,30 @@
 \end{frame}
 
 \begin{frame}{Evolution}
+
+Quantum operators = unitary matrices.
+
 \begin{enumerate}
     \item Flipping the coin.
     \item Stepping according to the result.
 \end{enumerate}
-\begin{itemize}
-    \item Quantum operators = unitary matrices.
-\end{itemize}
+
+  \begin{center}
+    \begin{tikzpicture}[scale=1.5, every node/.style={scale=0.7}]
+      % Nodes
+      \foreach \i in {-2, ..., 2} {
+        \node[circle, fill=blue!50] (x\i) at (\i, 0) {};
+        \node[below] at (x\i.south) {$\ket{\i}$};
+      }
+      
+      % Arrows
+      \foreach \i [evaluate=\i as \j using int(\i+1)] in {-2, ..., 1} {
+        \draw[->, thick] (x\i) to[bend left] node[midway, above] {$\ket{1}$} (x\j);
+        \draw[->, thick] (x\j) to[bend left] node[midway, below] {$\ket{0}$} (x\i);
+      }
+    \end{tikzpicture}
+  \end{center}
+
 \end{frame}
 
 \begin{frame}
@@ -231,11 +248,19 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Current state \& future plans}
+\begin{frame}{Current limitations and future plans}
 \begin{itemize}
-    \item 
+    \item Current state: coined walks, no errors.
+    \item Simulator in Python, report probability distribution, and various properties (eigenvalues and eigenvectors, graphs on hitting and mixing times).
+    \item Future plans:
+    \begin{itemize}
+        \item Szegedy walks.
+        \item Simulating noise.
+        \item Moving to C++, memory optimization techniques.
+        
+        \item The Latex document is too long $\rightarrow$ website.
+    \end{itemize}
 \end{itemize}
-    
 \end{frame}
 
 \begin{frame}{Software}
