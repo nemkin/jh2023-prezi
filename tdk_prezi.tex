@@ -71,12 +71,12 @@
 \end{frame}
 
 \begin{frame}{1 dimension}
-\textbf{State registers}
+\textbf{Current state}
 \begin{itemize}
-    \item Quantum memory = unit vectors in Hilbert space. \pause
+    \item Quantum register $\rightarrow$ a unit vector in Hilbert space. \pause
     \item Position state: \pause
     \begin{itemize}
-        \item $\ket{-N},\ket{-N+1},\dots,\ket{-1},\ket{0},\ket{1},\dots,\ket{N-1},\ket{N}$ \pause
+        \item Base states: $\ket{-N},\ket{-N+1},\dots,\ket{-1},\ket{0},\ket{1},\dots,\ket{N-1},\ket{N}$ \pause
         \item $\ket{x} = \sum\limits_{i=-N}^{N}x_i\ket{i} \in{} \mathbb{C}^{2N+1}$ \pause
     \end{itemize}
     \item Coin state: \pause
@@ -168,7 +168,7 @@
 
 \end{frame}
 
-\begin{frame}{Walk in 1 dimension}
+\begin{frame}{Walk in 1 dimension (Circle)}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.3\linewidth]{./figures/results/cycle_long/classical.eps}
@@ -177,7 +177,7 @@
 \end{frame}
 
 \begin{frame}{Generalization to undirected $d$-regular graphs}
-\begin{itemize}
+\begin{itemize}\pause
     \item Position state: $\ket{x} = \sum\limits_{v=0}^{n-1}x_v\ket{v} \in{} \mathbb{C}^{n}$ \pause
     \item Coin state: $\ket{s} = \sum\limits_{i=0}^{d-1}s_i\ket{i} \in{} \mathbb{C}^{d}$ \pause
     \item Step operator: $\mathbf{S} = \mathbf{S}_0\otimes \ket{0}\bra{0} + \mathbf{S}_1 \otimes\ket{1}\bra{1} + \dots + \mathbf{S}_{d-1}\otimes \ket{d-1}\bra{d-1}$
@@ -189,7 +189,7 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Walk in 2 dimension (Grid)}
+\begin{frame}{Walk in 2 dimensions (Torus)}
   \begin{columns}[onlytextwidth]
     \begin{column}{.20\textwidth}
     \end{column}
@@ -209,7 +209,7 @@
 \end{frame}
 
 
-\begin{frame}{Walk on a Hypercube}
+\begin{frame}{Walk in higher dimensions (Hypercube)}
   \begin{columns}[onlytextwidth]
     \begin{column}{.20\textwidth}
     \end{column}
